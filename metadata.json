@@ -1,0 +1,6 @@
+{
+  "name": "Pixel Waifu",
+  "description": "An interactive full-body pixel anime girl character creator by Pratik.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
