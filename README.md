@@ -4,7 +4,7 @@
 
 **pixel waifu by Pratik**
 
-Pixel Waifu is a browser-based anime character customization platform that allows visitors to design and generate a personalized, full-body, pixel-art anime girl through an interactive ten-step questionnaire. Built as a fully client-side web application, it dynamically combines modular visual pixel components based on user selections, presenting a real-time preview and exporting high-resolution artwork without relying on external image services or backend infrastructure.
+Pixel Waifu is a mobile-first, browser-based anime character customization platform that allows visitors to design and generate a personalized, full-body, pixel-art anime girl through a seamless ten-step questionnaire. Built as a fully client-side web application, it dynamically combines modular visual pixel components based on user selections, presenting an immediate real-time preview and exporting high-resolution artwork without relying on external image services or backend infrastructure.
 
 ---
 
@@ -12,29 +12,92 @@ Pixel Waifu is a browser-based anime character customization platform that allow
 
 Pixel Waifu is designed to deliver a dedicated, interactive character-creation experience reminiscent of classic 16-bit anime role-playing games. The application addresses the challenge of rendering a vast number of unique visual variations without storing pre-rendered image files for every possibility.
 
-Visitors interact with the platform through a structured, multi-step interface:
+Visitors interact with the platform through a mobile-first, single-viewport interface:
 - Visitors start by providing their name on a welcome screen.
 - Visitors progress sequentially through ten individual customization decisions.
 - Each choice directly influences an isolated visual component—such as hair color, hairstyle silhouette, skin tone, eye anatomy, garments, footwear, accessories, emotional expression, or environmental backdrop.
-- A central character rendering engine continuously composites these components in real time using integer-aligned scalable vector graphics (SVG).
-- Upon completing the questionnaire, the application displays the completed character along with options to export the artwork in either high-resolution raster (PNG) or scalable vector (SVG) formats.
+- Tapping any option immediately applies the selection, updates the character preview in real time, and automatically advances to the next question after a smooth transition without requiring a separate confirmation or next button.
+- A central character rendering engine continuously composites these components using integer-aligned scalable vector graphics (SVG).
+- Upon completing the final question, the application transitions directly to the completed character reveal screen, offering options to export the artwork in either high-resolution raster (PNG) or scalable vector (SVG) formats.
 
 ---
 
 ## Project Highlights
 
+- **Automatic Question Advancement**: Tapping an option triggers a visual selection state and automatically advances to the next question after a 380-millisecond transition, eliminating unnecessary clicks.
+- **No-Scroll Mobile-First Viewport**: Every element—question heading, live character preview, four customization options in a 2 x 2 grid, motivational message, and back button—fits simultaneously inside a single mobile screen (100dvh) without vertical scrolling.
+- **Real-Time Live Character Preview**: Immediate visual feedback that reflects user selections as they progress through each stage, accumulating choices across all ten categories without resetting.
+- **Miniature SVG Visual Representations**: Each option card features an original, self-contained SVG thumbnail visually illustrating hair swatches, hair silhouettes, skin tones, eye styles, garments, shoes, accessories, expressions, and backdrops.
 - **Personalized Welcome Experience**: Validates and stores the visitor's name in temporary memory to customize the greeting and generated artwork badge.
 - **Ten-Step Sequential Questionnaire**: Ten distinct visual categories covering complete character anatomy and backdrop styling.
 - **Four Distinct Choices Per Category**: Exactly four options per question, each providing a visually noticeable variation.
-- **Real-Time Live Character Preview**: Immediate visual feedback that reflects user selections as they progress through the customization stages.
-- **Full-Body Pixel-Art Generation**: Proportional character representation including complete head, torso, limbs, garments, footwear, and shadows.
+- **Full-Body Pixel-Art Generation**: Proportional character representation including complete head, torso, limbs, garments, footwear, and contact shadows.
 - **Layer-Based Occlusion Engine**: Correct front-to-back z-ordering for natural overlap of hair strands, accessories, clothing, and body parts.
-- **Progress Tracking**: Step indicators and visual progress meters keep the user informed of their completion status.
+- **Safe Rapid-Tap Handling**: Interaction lock state prevents accidental double advancement or skipped questions during rapid tapping.
+- **Backward Navigation**: An elegant back button allows visitors to revisit and adjust previous choices while preserving all subsequent answers.
 - **High-Resolution PNG Export**: Client-side canvas rasterization at 768 x 1152 pixels with nearest-neighbor scaling to preserve razor-sharp pixel edges.
 - **Scalable Vector (SVG) Export**: Direct vector markup download for loss-less scaling and reproduction.
 - **Synthesized Audio Feedback**: Built-in sound synthesis using the browser Web Audio API for UI feedback without external audio files.
 - **Completely Client-Side Architecture**: Zero server round-trips, third-party image APIs, or persistent databases.
 - **Strict Data Privacy**: No accounts, cookies, analytics trackers, or local storage persistence.
+
+---
+
+## User Interaction and Navigation
+
+The questionnaire experience is streamlined for touch devices and keyboard/mouse interaction:
+
+### Automatic Advancement
+
+1. The visitor views the current question, live character preview, and four visual option cards.
+2. The visitor taps or clicks an option card.
+3. The selected card displays an immediate selection state (highlighted border, subtle glow, and checkmark confirmation).
+4. The character preview updates instantly to reflect the chosen attribute.
+5. An interaction lock prevents subsequent taps from miscounting or skipping questions.
+6. After a 380-millisecond transition delay, the application automatically moves to the next question.
+7. There is no Next Question button required at any point in the creation flow.
+
+### Backward Navigation
+
+A dedicated Back button is available at the bottom of the interface:
+- On Question 1, tapping Back allows the visitor to return to the welcome screen and update their name.
+- On Questions 2 through 10, tapping Back returns to the preceding question.
+- Previously selected options remain selected when navigating backward.
+- Changing a previous answer updates that category immediately and automatically advances forward while retaining all other previously chosen attributes.
+
+### Final Reveal Transition
+
+On Question 10 (Background), selecting an option saves the final backdrop selection, displays the selection feedback, and transitions directly to the character reveal screen without requiring confirmation modals.
+
+---
+
+## Mobile-First Single-Viewport Interface
+
+The questionnaire is engineered from the ground up for mobile screens, ensuring that no vertical scrolling is required to complete character creation.
+
+### Layout Hierarchy
+
+- **Top Section**:
+  - Top navigation bar featuring author branding (`pixel waifu by Pratik`) and an audio mute toggle.
+  - Question progress row displaying question index (`QUESTION 03 / 10`), category title, and a smooth animated progress bar.
+- **Middle Section**:
+  - Question heading presenting the active customization prompt.
+  - Dedicated live character preview showing the full-body character at responsive heights (130px to 175px on mobile, 400px on desktop) without cropping.
+  - Compact 2 x 2 grid displaying all four options simultaneously with dedicated SVG visual thumbnails and readable labels.
+- **Bottom Section**:
+  - Small, accessible Back button.
+  - Animated motivational message: "A few steps to unlock your anime girl."
+
+### Viewport Adaptation
+
+The layout employs dynamic viewport height units (`100dvh`), flexbox layout constraints, and safe-area insets. The interface was tested and calibrated for standard smartphone dimensions, including:
+- 320 x 568 (Compact mobile)
+- 360 x 640 (Standard mobile)
+- 375 x 667 (iPhone SE / iPhone 8)
+- 390 x 844 (iPhone 12 / 13 / 14)
+- 412 x 915 (Pixel / Galaxy devices)
+
+On tablet and desktop displays, the interface progressively enhances into a balanced two-column layout: question controls and option cards on the left, and an expanded high-resolution character preview on the right.
 
 ---
 
@@ -103,13 +166,13 @@ The project relies on standard modern web standards and lightweight frontend lib
 
 The user journey proceeds through eight stages:
 
-1. **Arrival**: The visitor accesses the application and views the introductory hero interface and sample pixel character.
+1. **Arrival**: The visitor accesses the application and views the introductory hero interface and animated pixel character showcase.
 2. **Identity Entry**: The visitor enters their name. The system verifies that the input contains non-whitespace characters before permitting progression.
-3. **Sequential Questionnaire**: The visitor navigates through questions 1 through 10. Each question presents four cards containing visual identifiers, descriptions, and color indicators.
-4. **State Dispatch**: Each option selection immediately updates both the questionnaire progress state and the live character preview model.
-5. **Dynamic Composition**: The `PixelCharacter` SVG component recalculates coordinates, fills, and silhouettes based on the active selection state.
-6. **Completion and Reveal**: After answering the tenth question, the application transitions to the reveal screen, addressing the visitor by name.
-7. **Artwork Export**: The visitor triggers either PNG or SVG export. The artwork is processed and saved directly via the browser.
+3. **Sequential Questionnaire**: The visitor is presented with questions 1 through 10. Each question displays four cards containing visual thumbnail previews, titles, and category badges.
+4. **Touch Selection**: The visitor taps their preferred option. The system immediately captures the choice, highlights the card, and updates the live character preview.
+5. **Automatic Progression**: Following a 380-millisecond confirmation delay, the application transitions to the subsequent question.
+6. **Completion and Reveal**: After answering Question 10, the application transitions directly to the reveal screen, greeting the visitor by name.
+7. **Artwork Export**: The visitor downloads the completed artwork as an integer-scaled PNG (768 x 1152) or a scalable vector SVG file.
 8. **Session Reset**: The visitor can select "Create Another Character", which resets the memory state and returns to the initial screen.
 
 ---
@@ -123,6 +186,7 @@ The user journey proceeds through eight stages:
 ├── index.html                # Application HTML entry point and font declarations
 ├── metadata.json             # AI Studio platform configuration
 ├── package.json              # Project dependencies and script definitions
+├── package-lock.json         # Pinned dependency lockfile
 ├── tsconfig.json             # TypeScript compiler settings
 ├── vite.config.ts            # Vite bundler and plugin configuration
 └── src/
@@ -139,15 +203,18 @@ The user journey proceeds through eight stages:
     └── components/
         ├── Header.tsx        # Top navigation bar with branding and audio toggle
         ├── PixelCharacter.tsx# Core SVG character rendering engine and palettes
+        ├── OptionThumbnail.tsx# Dedicated SVG thumbnail illustrations for option cards
         ├── WelcomeScreen.tsx # Screen 1: Visitor introduction and name input form
-        ├── QuestionnaireScreen.tsx # Screen 2: 10-step customization interface
+        ├── QuestionnaireScreen.tsx # Screen 2: Mobile-first no-scroll questionnaire interface
         └── RevealScreen.tsx  # Screen 3: Final character showcase and export tools
 ```
 
 ### Component Responsibilities
 
-- **`App.tsx`**: Manages the high-level application state, including active screen navigation (`welcome`, `questionnaire`, `reveal`), the visitor's name, active character selections, and audio muting.
+- **`App.tsx`**: Manages top-level application state, active screen routing (`welcome`, `questionnaire`, `reveal`), visitor name, active character selections, and audio muting.
 - **`PixelCharacter.tsx`**: Houses the SVG coordinate system (`viewBox="0 0 96 144"`), color lookup tables for skin, hair, and eyes, and modular rendering functions for all ten character aspects.
+- **`OptionThumbnail.tsx`**: Provides modular SVG thumbnail graphics illustrating each customization choice (hair color locks, hairstyles, skin tones, irises, outfits, shoes, accessories, expressions, and backdrops).
+- **`QuestionnaireScreen.tsx`**: Implements the mobile-first single-viewport questionnaire, managing automatic advancement timers, rapid-tap locks, live character previews, and backward navigation.
 - **`exporter.ts`**: Handles client-side file generation by cloning the SVG DOM tree, drawing to an offscreen HTML Canvas with disabled smoothing, and downloading through temporary object URLs.
 - **`audio.ts`**: Encapsulates an `AudioContext` instance providing non-blocking oscillator tones for selection clicks, progression, back navigation, and completion fanfares.
 
@@ -242,9 +309,9 @@ Pixel Waifu operates under a strict client-side data privacy model:
 
 The user interface is built to function across varied device form factors:
 
-- **Desktop and Laptop Displays**: Features a balanced two-column presentation on the customization screen, positioning question options on the left and a dedicated live preview on the right.
+- **Mobile Viewport Optimization**: On mobile devices, the questionnaire is constrained to a single vertical viewport (`100dvh`), presenting question progress, live character preview, four option cards in a 2 x 2 grid, and navigation controls simultaneously without scrolling.
+- **Desktop and Laptop Displays**: Features a balanced two-column presentation on the customization screen, positioning question options on the left and a dedicated large preview on the right.
 - **Tablet Devices**: Flexible CSS grid layouts adapt column spans and font scales to maintain legibility without horizontal scrolling.
-- **Mobile Handsets**: On smaller touch devices, the interface stacks logically into a single-column flow with accessible touch targets (minimum 44px height for interactive options) and scaled preview proportions.
 - **Vector Scaling**: The character renderer uses the SVG `preserveAspectRatio="xMidYMid meet"` attribute to scale to any container width while preserving strict aspect ratio and pixel alignment.
 
 ---

@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ isMuted, onToggleMute }) => {
   return (
-    <header className="w-full flex items-center justify-between px-6 py-3 border-b border-purple-900/30 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
+    <header className="w-full flex items-center justify-between px-3.5 py-1.5 sm:px-6 sm:py-2.5 border-b border-purple-900/30 bg-slate-950/70 backdrop-blur-md sticky top-0 z-50 shrink-0">
       <div className="flex items-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
         <span className="font-pixel text-xs tracking-wider text-pink-300/90 hover:text-pink-200 transition-colors">

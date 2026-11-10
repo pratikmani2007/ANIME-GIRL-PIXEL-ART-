@@ -66,12 +66,22 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0c0e17] text-slate-100 flex flex-col font-sans selection:bg-pink-500 selection:text-white">
+    <div
+      className={`bg-[#0c0e17] text-slate-100 flex flex-col font-sans selection:bg-pink-500 selection:text-white ${
+        screen === 'questionnaire'
+          ? 'h-[100dvh] max-h-[100dvh] overflow-hidden'
+          : 'min-h-screen'
+      }`}
+    >
       {/* Top Header with brand mark and sound toggle */}
       <Header isMuted={isMuted} onToggleMute={handleToggleMute} />
 
       {/* Screen Views */}
-      <main className="flex-1 flex flex-col">
+      <main
+        className={`flex-1 flex flex-col min-h-0 ${
+          screen === 'questionnaire' ? 'overflow-hidden' : 'overflow-y-auto'
+        }`}
+      >
         {screen === 'welcome' && (
           <WelcomeScreen
             onStart={handleStart}
